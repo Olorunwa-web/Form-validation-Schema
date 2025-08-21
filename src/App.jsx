@@ -11,12 +11,17 @@ function App() {
 
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(formSchema),
   })
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => {
+    console.log(data);
+    reset();
+  }
+
 
   const [theme, setTheme] = useState("light"); 
 
@@ -83,7 +88,7 @@ function App() {
                 {errors.file && <span className = "text-xs mt-[-3px] italic font-medium text-[#EC5E5E]">{errors.file?.message}</span>}
               </div>
             </div>
-            <button type = 'submit'   className = {`mt-6 w-full py-3 text-sm rounded-xl text-white font-medium ${theme === "dark" ? "bg-green-600 " : "bg-neutral-700 "} `}>Submit</button>
+            <button type = 'submit' disabled = {isSubmitting}   className = {`mt-6 w-full py-3 text-sm rounded-xl text-white font-medium ${theme === "dark" ? "bg-green-600 " : "bg-neutral-700 "} `}>Submit</button>
           </form>
           <div onClick={toggleTheme} className = {`fixed flex gap-2 rounded-full p-2 transition-all duration-500  bottom-3 right-5   ${theme === "light" ? " bg-white" : " bg-black"}`}>
             <img src= {theme === "light" ? darkmode : lightmode } alt="" className = 'w-5 h-5'/>
